@@ -28,7 +28,7 @@
       :class="{ success: !errors.length, error: errors.length }"
       >{{ message }}</span
     >
-    <button type="submit" @click="handleSubmit" @click.prevent>Submit</button>
+    <button type="submit" @click.prevent="handleSubmit">Submit</button>
   </form>
 </template>
 
@@ -38,13 +38,12 @@ import { formValidator } from '../helpers/validator';
 
 export default defineComponent({
   name: 'Form',
-  setup() {
+  setup(_, { emit }) {
     const user = ref({
       firstName: '',
       lastName: '',
       age: 0,
     } as User);
-
     const errors = ref([] as string[]);
     const message = ref('Fill all the fields to submit the form.');
 
@@ -58,7 +57,17 @@ export default defineComponent({
         message.value = 'Form has errors!';
       } else {
         message.value = 'Form submitted successfully!';
+        emit('addUser', user.value);
+        clearForm();
       }
+    }
+
+    function clearForm() {
+      user.value = {
+        firstName: '',
+        lastName: '',
+        age: 0,
+      };
     }
 
     return {
