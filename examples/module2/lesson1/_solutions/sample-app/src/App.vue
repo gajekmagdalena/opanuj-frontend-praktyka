@@ -1,19 +1,13 @@
 <script setup lang="ts">
 import Form from './components/Form.vue';
 import UsersList from './components/UsersList.vue';
-import { ref } from 'vue';
-
-const users = ref([] as User[]);
-
-const addUser = (user: User) => {
-  users.value.push(user);
-};
+import { users, addUser, deleteUser } from './helpers/form-actions';
 </script>
 
 <template>
   <div class="container">
     <Form @addUser="addUser"></Form>
-    <UsersList :users="users"></UsersList>
+    <UsersList :users="users" @deleteUser="deleteUser"></UsersList>
   </div>
 </template>
 

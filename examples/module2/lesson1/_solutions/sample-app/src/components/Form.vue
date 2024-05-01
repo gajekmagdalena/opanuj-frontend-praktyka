@@ -22,6 +22,13 @@
       <label for="age">Age:</label>
       <input v-model="user.age" id="age" name="age" />
     </div>
+    <div>
+      <label for="role">Role:</label>
+      <select class="select-input" v-model="user.role" id="role" name="role">
+        <option value="admin">Admin</option>
+        <option value="user">User</option>
+      </select>
+    </div>
     <span v-for="error in errors" :key="error" class="error"> {{ error }}</span>
     <span
       v-if="!errors.length"
@@ -40,9 +47,11 @@ export default defineComponent({
   name: 'Form',
   setup(_, { emit }) {
     const user = ref({
+      id: Math.floor(Math.random() * 1000),
       firstName: '',
       lastName: '',
       age: 0,
+      role: 'user',
     } as User);
     const errors = ref([] as string[]);
     const message = ref('Fill all the fields to submit the form.');
@@ -80,4 +89,18 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.select-input {
+  width: 200px;
+  height: 35px;
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
+  background: white;
+  color: #444;
+  font-size: 14px;
+  padding: 5px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+</style>
